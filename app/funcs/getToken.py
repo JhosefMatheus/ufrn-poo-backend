@@ -1,5 +1,5 @@
 from flask import request
-from app.errors.baseException import BaseException
+from ..errors import BaseException
 
 def get_token():
     try:

@@ -1,5 +1,5 @@
 import jwt
-from app.errors.baseException import BaseException
+from ..errors import BaseException
 from config import SECRET_KEY
 
 class JwtService:

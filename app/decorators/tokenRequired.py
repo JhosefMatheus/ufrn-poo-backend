@@ -1,11 +1,10 @@
-from app.funcs.getToken import get_token
-from app.errors.baseException import BaseException
-from app.errors.unauthorizedException import UnauthorizedException
+from ..funcs import get_token
+from ..errors import *
 from app.services.jwtService import JwtService
 from functools import wraps
 import jwt
 from flask import make_response, jsonify
-from app.models.userModel import UserModel
+from ..models import UserModel
 
 def token_required(f):
     @wraps(f)

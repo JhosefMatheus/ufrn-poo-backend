@@ -1,26 +1,25 @@
 from app import app
 from flask import request, jsonify, make_response
-from app.errors.baseException import BaseException
-from app.errors.badRequestException import BadRequestException
+from ..errors import *
 from app.services.authService import AuthService
-from app.decorators.tokenRequired import token_required
+from ..decorators import token_required
 
 @app.route("/auth/sign-in", methods=["POST"])
 def sign_in():
     try:
         req = request.get_json()
 
-        login = req.get("login")
+        email = req.get("email")
 
-        if login is None:
-            raise BadRequestException("Login não informado.")
+        if email is None:
+            raise BadRequestException("Email não informado.")
 
         password = req.get("password")
 
         if password is None:
             raise BadRequestException("Senha não informada.")
 
-        authResponse = AuthService.sign_in(login, password)
+        authResponse = AuthService.sign_in(email, password)
 
         return make_response(jsonify(authResponse), 200)
 
@@ -41,19 +40,17 @@ def sign_up(user):
         if name is None:
             raise BadRequestException("Nome não informado.")
 
-        login = req.get("login")
+        email = req.get("email")
 
-        if login is None:
-            raise BadRequestException("Login não informado.")
+        if email is None:
+            raise BadRequestException("Email não informado.")
 
         password = req.get("password")
 
         if password is None:
             raise BadRequestException("Senha não informada.")
 
-        print(name, login, password)
-
-        authResponse = AuthService.sign_up(name, login, password)
+        authResponse = AuthService.sign_up(name, email, password)
 
         return make_response(jsonify(authResponse), 200)
 
