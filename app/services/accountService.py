@@ -28,6 +28,10 @@ class AccountService:
             token = ""
 
             if user_changed_flag:
+                user.updated_at = datetime.utcnow()
+
+                db.session.add(user)
+
                 db.session.commit()
 
                 payload = {
